@@ -1,6 +1,7 @@
 locals {
   environment = var.environment != null ? var.environment : "multi-runner"
   aws_region  = "eu-west-1"
+  #aws_region  = "us-east-1"
 
   # Load runner configurations from Yaml files
   multi_runner_config = { for c in fileset("${path.module}/templates/runner-configs", "*.yaml") : trimsuffix(c, ".yaml") => yamldecode(file("${path.module}/templates/runner-configs/${c}")) }
@@ -53,14 +54,14 @@ module "multi-runner" {
 
   # Assuming local build lambda's to use pre build ones, uncomment the lines below and download the
   # lambda zip files lambda_download
-  # webhook_lambda_zip                = "../lambdas-download/webhook.zip"
-  # runner_binaries_syncer_lambda_zip = "../lambdas-download/runner-binaries-syncer.zip"
-  # runners_lambda_zip                = "../lambdas-download/runners.zip"
+  webhook_lambda_zip                = "../lambdas-download/webhook.zip"
+  runner_binaries_syncer_lambda_zip = "../lambdas-download/runner-binaries-syncer.zip"
+  runners_lambda_zip                = "../lambdas-download/runners.zip"
 
   # enable_workflow_job_events_queue = true
   # override delay of events in seconds
 
   # Enable debug logging for the lambda functions
-  # log_level = "debug"
+  log_level = "debug"
 
 }

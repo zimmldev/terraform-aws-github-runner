@@ -9,7 +9,7 @@ resource "aws_lambda_function" "scale_up" {
   handler                        = "index.scaleUpHandler"
   runtime                        = var.lambda_runtime
   timeout                        = var.lambda_timeout_scale_up
-  reserved_concurrent_executions = var.scale_up_reserved_concurrent_executions
+  reserved_concurrent_executions = -1
   memory_size                    = 512
   tags                           = local.tags
   architectures                  = [var.lambda_architecture]
